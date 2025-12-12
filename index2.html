@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私のポートフォリオ</title>
+    <style>
+        /* ========================================
+        🎨 グローバルスタイルとカラー定義
+        ========================================
+        */
+        :root {
+            --color-main: #f4fdee; /* 薄いグリーン (メインカラー) */
+            --color-accent: #e0e0f0; /* 薄い紫 (背景・区切り線など) */
+            --color-text: #333333; /* 標準的なテキスト */
+            --color-light-text: #666666; /* 明るいテキスト */
+            --color-white: #ffffff; /* 白 */
+            --font-family-base: 'Avenir', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --section-padding: 60px 20px;
+        }
+
+        /* リセットと基本設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-accent); /* 薄い紫の背景 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* 横スクロール防止 */
+        }
+
+        a {
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4CAF50; /* ホバー時に少し濃いグリーン */
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 見出しスタイル */
+        h1, h2, h3 {
+            margin-bottom: 0.8em;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            border-bottom: 2px solid var(--color-main);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 1.5em;
+        }
+
+        h3 {
+            font-size: 1.8em;
+            color: #556B2F; /* 落ち着いたグリーン */
+        }
+
+        /* ========================================
+        🌿 アニメーション：植物の揺れと日光
+        ========================================
+        */
+        
+        /* 風で揺れるようなホバー効果 (ボタンやカードなどに適用) */
+        .wavy-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 太陽光のようなアニメーションを背景に追加 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at 10% 10%, rgba(255, 255, 200, 0.2) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(255, 255, 200, 0.15) 0%, transparent 35%);
+            animation: sun-move 30s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes sun-move {
+            from {
+                opacity: 0.8;
+                transform: translate(0, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate(50px, 50px);
+            }
+        }
+
+
+        /* ========================================
+        🧭 ヘッダー (Header)
+        ========================================
+        */
+        header {
+            background-color: var(--color-white);
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.5em;
+            margin: 0;
+            color: #556B2F;
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: var(--color-main);
+            color: var(--color-text);
+        }
+
+        /* ========================================
+        🖼️ メインコンテンツ (Main) とセクション (Section)
+        ========================================
+        */
+        main {
+            flex-grow: 1;
+        }
+
+        .content-section {
+            padding: var(--section-padding);
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--color-white);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        /* ヒーローセクション */
+        #hero {
+            background-color: var(--color-main); /* メインカラーを使用 */
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 0;
+            margin-bottom: 0;
+            box-shadow: none;
+            /* ヒーローセクションを少し揺らして自然な感じに */
+            animation: gentle-wave 10s infinite alternate ease-in-out;
+        }
+        
+        @keyframes gentle-wave {
+            from { transform: translateY(0); }
+            to { transform: translateY(-3px); }
+        }
+
+        #hero h2 {
+            font-size: 3em;
+            color: #556B2F;
+            border-bottom: none;
+        }
+
+        #hero p {
+            font-size: 1.2em;
+            color: var(--color-light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About & Skillセクション */
+        #about article p,
+        #skill article p {
+            margin-bottom: 1em;
+            padding-left: 15px;
+            border-left: 3px solid var(--color-main);
+        }
+
+        .skill-list article h4 {
+            color: #6B8E23; /* オリーブグリーン */
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        /* Contactセクション */
+        #contact address {
+            font-style: normal;
+            margin-top: 15px;
+        }
+
+
+        /* ========================================
+        🖼️ Worksセクション（グリッドレイアウト & レスポンシブ）
+        ========================================
+        */
+        .works-grid {
+            display: grid;
+            /* PCでは3列、タブレットでは2列、スマホでは1列 */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .work-item {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-accent);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        
+        .work-item:hover {
+            /* 植物の揺れアニメーションを適用 */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-item img {
+            width: 100%;
+            height: 200px; /* 画像の高さ固定 */
+            object-fit: cover;
+            display: block;
+        }
+
+        .work-item figcaption {
+            padding: 15px;
+        }
+
+        .work-item h4 {
+            font-size: 1.2em;
+            margin-top: 0;
+            color: #556B2F;
+        }
+
+        .work-item p {
+            font-size: 0.9em;
+            color: var(--color-light-text);
+            margin: 10px 0;
+        }
+
+        .work-item a {
+            display: inline-block;
+            background-color: var(--color-main);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .work-item a:hover {
+            background-color: #E6F7E6; 
+        }
+
+        /* ========================================
+        🦶 フッター (Footer)
+        ========================================
+        */
+        footer {
+            background-color: var(--color-text);
+            color: var(--color-white);
+            text-align: center;
+            padding: 20px 20px;
+            margin-top: auto; /* mainの下に固定 */
+            font-size: 0.9em;
+        }
+
+        /* ========================================
+        📱 メディアクエリ (レスポンシブ対応)
+        ========================================
+        */
+        @media (max-width: 768px) {
+            /* タブレット・スマホ */
+            :root {
+                --section-padding: 40px 15px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            h3 {
+                font-size: 1.5em;
+            }
+
+            /* ヘッダー */
+            header {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+
+            header h1 {
+                margin-bottom: 10px;
+            }
+
+            header nav ul {
+                gap: 10px;
+                flex-wrap: wrap; /* ナビゲーションを折り返す */
+                justify-content: center;
+            }
+            
+            /* Worksグリッド (スマホでは縦1列が基本) */
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-item img {
+                height: auto; /* スマホでは画像高さを可変に */
+            }
+        }
+        /* ========================================
+✨ フェードインアニメーションの定義
+========================================
+*/
+/* 初期状態: 透明で、下に少しずらしておく (下から上へ) */
+.fade-up-init {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* 0.5秒かけて実行 */
+}
+
+/* 実行状態: 透明度を戻し、位置をリセット */
+.fade-up-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>私のポートフォリオ</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skill">Skill</a></li>
+                <li><a href="#works">Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <h2>Welcome</h2>
+            <p>植物や食に関するモチーフから見やすいWebデザインを目指します
+
+            </p>
+            </section>
+
+        <section id="about" class="content-section">
+            <h3>About me</h3>
+            <article>
+              
+                <p>趣味は植物や料理の写真を撮ることです。色の選択で迷った際などは好きな植物の配色を参考にしています。<br/>
+秋田市主催のなでしこ就労支援事業のデジタルデザイン講座とAIアドバンス講座で、デザインやコーディング・AI活用について学び、このポートフォリオを作成しました。<br/>
+よろしくお願い致します。
+</p>
+            </article>
+        </section>
+
+        <section id="skill" class="content-section">
+            <h3>Skill</h3>
+            <div class="skill-list">
+                <article>
+                    <h4>フロントエンド</h4>
+                    <p>HTML5, CSS3, JavaScript <br/>
+                        自分の希望をプロンプトで指示してAI生成されたコードを活用した簡単なプログラミングを、講座で学びました。
+                    </p>
+                </article>
+                <article>
+                    <h4>バックエンド</h4>
+                    <p>なし</p>
+                </article>
+                <article>
+                    <h4>ツール/その他</h4>
+                    <p>Canva, Figma, VS Code, Wordpressなど</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="works" class="content-section">
+            <h3>Works</h3>
+            <div class="works-grid">
+                <figure class="work-item wavy-hover">
+                    <img src="/images/自己紹介イラストAI生成.jpg" alt="作品1のサムネイル">
+                    <figcaption>
+                        <h4>自己紹介イラスト</h4>
+                        <p>使用技術：CanvaによるAI画像生成</p>
+                        <a href="/images/自己紹介イラストAI生成.jpg" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="work-item wavy-hover">
+                    <img src="/images/PC_テンプレート（welcome).jpg" alt="作品2のサムネイル">
+                    <figcaption>
+                        <h4>自己紹介ページ</h4>
+                        <p>使用技術：Figma で講師のデザイナーの方が用意してくださったテンプレートをもとに作成しました。</p>
+                        <a href="/images/PC_テンプレート（welcome).jpg" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="work-item wavy-hover">
+                    <img src="/images/かぼちゃのポタージュ（インスタ４：５）.jpg" alt="作品3のサムネイル">
+                    <figcaption>
+                        <h4>作品名 3「パン屋併設カフェのメニュー宣伝広告」</h4>
+                        <p>使用技術：Canvaでインスタ投稿サイズテンプレートで作成</p>
+                        <a href="/images/かぼちゃのポタージュ（インスタ４：５）.jpg" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="work-item wavy-hover">
+                    <img src="/images/クリス料理教室チラシ　A4縦.jpg" alt="作品4のサムネイル">
+                    <figcaption>
+                        <h4>作品名 4「クリスマス料理教室A4縦チラシ」</h4>
+                        <p>使用技術：Google Geminiでレシピ写真生成とCanvaでチラシテンプレートによる作成</p>
+                        <a href="/images/クリス料理教室チラシ　A4縦.jpg" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="work-item wavy-hover">
+                    <img src="/images/Gemini レシピプレゼン表紙写真案生成（かぶ生と煮込み）.png" alt="作品5のサムネイル">
+                    <figcaption>
+                        <h4>作品名 5「かぶのレシピプレゼン表紙写真（生サラダと煮込みの2種類を提案）」</h4>
+                        <p>使用技術：Google Geminiによるレシピプレゼン表紙写真案とアイディア生成</p>
+                        <a href="/images/Gemini レシピプレゼン表紙写真案生成（かぶ生と煮込み）.png" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+
+                <figure class="work-item wavy-hover">
+                    <img src="/images/HP食と暮らしスクショ.png" alt="作品6のサムネイル">
+                    <figcaption>
+                        <h4>作品名 6「趣味の食と植物など写真投稿HP」
+                        </h4>
+                        <p>使用技術：WordPressでHP作成</p>
+                        <a href="https://sakura-forest.site/" target="_blank">詳細を見る</a>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h3>Contact</h3>
+            <p>お仕事のご依頼やご相談など、お気軽にお問い合わせください。</p>
+            <div class="contact-info">
+                <address>
+                    メール：<a href="mailto:your_email@example.com">your_email@example.com</a>
+                </address>
+                </div>
+        </section>
+
+        <section id="works" class="content-section">
+            <h3 class="fade-target fade-up-init">Works</h3> <div class="works-grid">
+                <figure class="work-item wavy-hover fade-target fade-up-init"> </figure>
+                <figure class="work-item wavy-hover fade-target fade-up-init"> </figure>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 私のポートフォリオ All Rights Reserved.</p>
+    </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ヘッダーの高さを取得し、スクロール位置のオフセットとして使用
+        // 実際のヘッダーの高さを取得するため、offsetHeightを使用します
+        const headerHeight = document.querySelector('header').offsetHeight;
+        
+        // ナビゲーション内のすべてのリンクを取得 (hrefが"#"で始まるもの)
+        const links = document.querySelectorAll('header nav a[href^="#"]');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // デフォルトのアンカーリンク動作をキャンセル
+                e.preventDefault(); 
+                
+                // リンクの href 属性から対象のセクションIDを取得（例: #about）
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // 対象要素の上端からドキュメント上端までの距離を取得
+                    const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                    
+                    // スクロール先の最終位置を計算
+                    // 要素の位置 - ヘッダーの高さ
+                    const offsetPosition = elementPosition - headerHeight;
+
+                    // スムーズスクロールを実行
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth' // なめらかにスクロール
+                    });
+                }
+            });
+        });
+    });
+    // ... (スムーススクロールのコードが続く) ...
+
+        // ========================================
+        // ✨ フェードインアニメーション (Intersection Observer)
+        // ========================================
+        const fadeTargets = document.querySelectorAll('.fade-target');
+
+        // Observerのオプション
+        const options = {
+            root: null, // ビューポートを基準とする
+            rootMargin: '0px',
+            threshold: 0.1 // 要素が10%見えたら実行
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 要素が画面内に入った（交差した）ら、アニメーションクラスを追加
+                    entry.target.classList.add('fade-up-on-scroll');
+                    
+                    // 一度実行したら監視を終了
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, options);
+
+        // すべての対象要素を監視
+        fadeTargets.forEach(target => {
+            observer.observe(target);
+        });
+    });
+</script>
+</body>
+</html>
